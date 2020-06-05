@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="c2b-xS-Aob">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DTi-xr-hAh">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="b5m-KW-WXB">
+                                    <size key="itemSize" width="233" height="273"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="Byl-kc-z64" customClass="ImageCollectionViewCell" customModule="ImageSearch" customModuleProvider="target">
+                                        <rect key="frame" x="90.5" y="0.0" width="233" height="273"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="233" height="273"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z59-Xh-26E">
+                                                    <rect key="frame" x="5" y="5" width="223" height="263"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Z59-Xh-26E" firstAttribute="top" secondItem="Byl-kc-z64" secondAttribute="top" constant="5" id="7eW-Ql-Rgq"/>
+                                            <constraint firstAttribute="trailing" secondItem="Z59-Xh-26E" secondAttribute="trailing" constant="5" id="NdI-EE-8gT"/>
+                                            <constraint firstItem="Z59-Xh-26E" firstAttribute="leading" secondItem="Byl-kc-z64" secondAttribute="leading" constant="5" id="gpQ-r9-cf9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Z59-Xh-26E" secondAttribute="bottom" constant="5" id="sdf-Z6-wab"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Z59-Xh-26E" id="BVZ-jr-x0v"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lbt-ED-2T3">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DTi-xr-hAh" secondAttribute="trailing" id="FQQ-Eh-cUG"/>
+                            <constraint firstItem="lbt-ED-2T3" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="I5J-XT-nLu"/>
+                            <constraint firstItem="c2b-xS-Aob" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M9s-xX-NNk"/>
+                            <constraint firstItem="DTi-xr-hAh" firstAttribute="top" secondItem="c2b-xS-Aob" secondAttribute="bottom" id="NEK-dg-hl2"/>
+                            <constraint firstItem="DTi-xr-hAh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="O8a-U8-qob"/>
+                            <constraint firstItem="lbt-ED-2T3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Qvn-49-SKM"/>
+                            <constraint firstItem="c2b-xS-Aob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bk1-1h-rmX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DTi-xr-hAh" secondAttribute="bottom" id="dIu-BZ-FlS"/>
+                            <constraint firstItem="c2b-xS-Aob" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lhE-PY-blS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="lbt-ED-2T3" id="s7c-Oq-HaS"/>
+                        <outlet property="collectionView" destination="DTi-xr-hAh" id="yWI-5B-XTj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-184" y="137"/>
+        </scene>
+    </scenes>
+</document>
