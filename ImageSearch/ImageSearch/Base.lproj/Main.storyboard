@@ -61,32 +61,73 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="wbO-T5-p43"/>
                                 </connections>
                             </collectionView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="40t-AV-D9U">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.75214041095890416" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AutoSuggestionTableViewCell" rowHeight="73" id="5KL-F2-5Wz" customClass="AutoSuggestionTableViewCell" customModule="ImageSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="73"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5KL-F2-5Wz" id="fee-5h-WT6">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RD9-Mo-iuz">
+                                                    <rect key="frame" x="20" y="10" width="374" height="53"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="RD9-Mo-iuz" firstAttribute="leading" secondItem="fee-5h-WT6" secondAttribute="leading" constant="20" id="ANh-8S-UgH"/>
+                                                <constraint firstItem="RD9-Mo-iuz" firstAttribute="top" secondItem="fee-5h-WT6" secondAttribute="top" constant="10" id="gQo-o3-UMO"/>
+                                                <constraint firstAttribute="bottom" secondItem="RD9-Mo-iuz" secondAttribute="bottom" constant="10" id="qsC-Nm-vzM"/>
+                                                <constraint firstAttribute="trailing" secondItem="RD9-Mo-iuz" secondAttribute="trailing" constant="20" id="qvj-ZH-Neg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="RD9-Mo-iuz" id="Cfb-fc-H3T"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="wjF-bq-uIq"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="u9S-v8-vMp"/>
+                                </connections>
+                            </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lbt-ED-2T3">
                                 <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="40t-AV-D9U" firstAttribute="leading" secondItem="DTi-xr-hAh" secondAttribute="leading" id="DMK-PZ-Sbx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DTi-xr-hAh" secondAttribute="trailing" id="FQQ-Eh-cUG"/>
                             <constraint firstItem="lbt-ED-2T3" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="I5J-XT-nLu"/>
                             <constraint firstItem="c2b-xS-Aob" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M9s-xX-NNk"/>
                             <constraint firstItem="DTi-xr-hAh" firstAttribute="top" secondItem="c2b-xS-Aob" secondAttribute="bottom" id="NEK-dg-hl2"/>
+                            <constraint firstItem="40t-AV-D9U" firstAttribute="bottom" secondItem="DTi-xr-hAh" secondAttribute="bottom" id="Nl1-Oy-OqZ"/>
                             <constraint firstItem="DTi-xr-hAh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="O8a-U8-qob"/>
                             <constraint firstItem="lbt-ED-2T3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Qvn-49-SKM"/>
+                            <constraint firstItem="40t-AV-D9U" firstAttribute="top" secondItem="DTi-xr-hAh" secondAttribute="top" id="aHi-g4-zBT"/>
                             <constraint firstItem="c2b-xS-Aob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bk1-1h-rmX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DTi-xr-hAh" secondAttribute="bottom" id="dIu-BZ-FlS"/>
                             <constraint firstItem="c2b-xS-Aob" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lhE-PY-blS"/>
+                            <constraint firstItem="40t-AV-D9U" firstAttribute="trailing" secondItem="DTi-xr-hAh" secondAttribute="trailing" id="xhn-T2-BHs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="lbt-ED-2T3" id="s7c-Oq-HaS"/>
+                        <outlet property="autoSuggestionTableView" destination="40t-AV-D9U" id="CkM-HV-Zyt"/>
                         <outlet property="collectionView" destination="DTi-xr-hAh" id="yWI-5B-XTj"/>
+                        <outlet property="searchBar" destination="c2b-xS-Aob" id="Zvu-jt-n19"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-184" y="137"/>
+            <point key="canvasLocation" x="-184.05797101449278" y="136.60714285714286"/>
         </scene>
         <!--Gallery View Controller-->
         <scene sceneID="T2T-r3-mvb">

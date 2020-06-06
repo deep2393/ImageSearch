@@ -18,15 +18,15 @@ struct ApiConfiguration{
     }
     
     static func collectiveUrlString(searchString: String, pageToSearch: Int) -> String{
-        return assembledURLString + "&q=\(searchString)&page=\(pageToSearch)"
+        let combinedUrl = assembledURLString + "&q=\(searchString)&page=\(pageToSearch)"
+        return combinedUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? ""
     }
 }
 
 final class ImageSearchApiHandler: ImageSearchApiProtocol{
-    
-    func fetchImages(searchText: String, pageToSearch: Int, completionHandler: @escaping ([ImageModelProtocol]) -> Void) {
+    func fetchImages(searchText: String, pageToSearch: Int, completionHandler: @escaping ([ImageModelProtocol], String) -> Void) {
         guard let url = URL(string: ApiConfiguration.collectiveUrlString(searchString: searchText, pageToSearch: pageToSearch)) else{
-            completionHandler([])
+            completionHandler([], searchText)
             return
         }
         
@@ -35,9 +35,9 @@ final class ImageSearchApiHandler: ImageSearchApiProtocol{
         let urltask = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
             if let unwrappedData = data,
                 let modelContainer = try? JSONDecoder().decode(ImageModelContainer.self, from: unwrappedData){
-                completionHandler(modelContainer.hits)
+                completionHandler(modelContainer.hits, searchText)
             }else{
-                completionHandler([])
+                completionHandler([], searchText)
             }
         }
         urltask.resume()

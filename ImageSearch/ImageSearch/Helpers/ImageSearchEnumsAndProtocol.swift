@@ -18,13 +18,14 @@ protocol ImageModelProtocol{
 
 
 protocol ImageSearchApiProtocol{
-    func fetchImages(searchText: String, pageToSearch: Int, completionHandler : @escaping (_ models : [ImageModelProtocol]) -> Void)
+    func fetchImages(searchText: String, pageToSearch: Int, completionHandler : @escaping (_ models : [ImageModelProtocol], _ searchedText: String) -> Void)
 }
 
 protocol ImageSearchVMDelegate : class{
     func viewModelDidBeginSearching()
     func viewModelDidEndSearching()
     func viewModelRefreshData()
+    func saveAutoSuggestText(text: String)
 }
 
 
@@ -41,3 +42,21 @@ protocol ImageSearchVMProtocol : NSObjectProtocol{
     func fetchModels(searchText: String)
 }
 
+protocol AutoSuggestionVMProtocol{
+    //ui methods
+    var modelCount: Int { get }
+    var isDataSourceEmpty: Bool { get }
+    func getModel(index: Int) -> AutoSuggestionModelProtocol?
+  
+    //fuctionality
+    func saveModel(text: String)
+}
+
+protocol AutoSuggestionModelProtocol{
+    var text : String { get }
+}
+
+protocol AutoSuggestionDBProtocol{
+    func getAllModels() -> [AutoSuggestionModelProtocol]
+    func saveModel(model: AutoSuggestionModelProtocol)
+}

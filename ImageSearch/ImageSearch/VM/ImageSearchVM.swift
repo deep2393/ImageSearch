@@ -11,14 +11,20 @@ import UIKit
 final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
     //MARK:- variables
     weak var delegate: ImageSearchVMDelegate?
-    var dataModels : [ImageModelProtocol] = []
-    var apiHandler : ImageSearchApiProtocol = ImageSearchApiHandler()
+    var dataModels : [ImageModelProtocol]
+    let apiHandler : ImageSearchApiProtocol
     var currentPage : Int = 1
     var isRequestingNextPage: Bool = false
     var currentSearchedText : String = ""
     
     var showBottomLoader: Bool {
         return isRequestingNextPage
+    }
+    
+    //MARK:- init
+    override init() {
+        dataModels = []
+        apiHandler = ImageSearchApiHandler()
     }
     
     //MARK:- UI related methods and variables
@@ -40,13 +46,16 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
         delegate?.viewModelDidBeginSearching()
         
         if !searchText.isEmpty{
-            apiHandler.fetchImages(searchText: searchText, pageToSearch: currentPage) { [weak self](models) in
+            apiHandler.fetchImages(searchText: searchText, pageToSearch: currentPage) { [weak self](models, searchText)  in
                 guard let weakSelf = self else{
                     return
                 }
-                weakSelf.dataModels.append(contentsOf: models)
-                weakSelf.delegate?.viewModelDidEndSearching()
-                weakSelf.delegate?.viewModelRefreshData()
+                if !models.isEmpty{
+                    weakSelf.dataModels.append(contentsOf: models)
+                    weakSelf.delegate?.saveAutoSuggestText(text: searchText)
+                }
+                    weakSelf.delegate?.viewModelDidEndSearching()
+                    weakSelf.delegate?.viewModelRefreshData()
             }
         }else{
             delegate?.viewModelDidEndSearching()
@@ -58,7 +67,7 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
         if !isRequestingNextPage{
             currentPage += 1
             isRequestingNextPage = true
-            apiHandler.fetchImages(searchText: currentSearchedText, pageToSearch: currentPage) { [weak self](models) in
+            apiHandler.fetchImages(searchText: currentSearchedText, pageToSearch: currentPage) { [weak self](models, _)  in
                 guard let weakSelf = self else{
                     return
                 }

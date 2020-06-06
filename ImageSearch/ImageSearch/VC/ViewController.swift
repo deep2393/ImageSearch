@@ -11,12 +11,16 @@ import UIKit
 final class ViewController: UIViewController {
     
     //MARK:- variables
-    var viewModel : ImageSearchVMProtocol = ImageSearchVM()
+    let viewModel : ImageSearchVMProtocol = ImageSearchVM()
+    let autoSuggestionVM : AutoSuggestionVMProtocol = AutoSuggestionVM()
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     fileprivate var footerView : CustomReusableView?
     
     //MARK:- outlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var autoSuggestionTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,15 @@ final class ViewController: UIViewController {
         collectionView.register(UINib(nibName: "CustomReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "CustomReusableView")
     }
     
+    
+    //MARK:- Helper methods
+    func manageAutoSuggestionViewHiding(show: Bool){
+        if show{
+            autoSuggestionTableView.isHidden = autoSuggestionVM.isDataSourceEmpty
+        }else{
+             autoSuggestionTableView.isHidden = true
+        }
+    }
 }
    
 extension ViewController : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -88,19 +101,33 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegateF
 
 
 extension ViewController : UISearchBarDelegate{
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        manageAutoSuggestionViewHiding(show: true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
         perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)
     }
         
     @objc func reload(_ searchBar: UISearchBar){
-        if let text = searchBar.text{
+        if let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines){
+            manageAutoSuggestionViewHiding(show: false)
             viewModel.fetchModels(searchText: text)
+            manageAutoSuggestionViewHiding(show: text.isEmpty)
         }
     }
 }
 
 extension ViewController : ImageSearchVMDelegate{
+    func saveAutoSuggestText(text: String) {
+        autoSuggestionVM.saveModel(text: text)
+        DispatchQueue.main.async { [weak self] in
+            self?.autoSuggestionTableView.reloadData()
+        }
+    }
+    
     func viewModelDidBeginSearching() {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
@@ -121,3 +148,27 @@ extension ViewController : ImageSearchVMDelegate{
     }
 }
 
+extension ViewController : UITableViewDataSource{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier:  "AutoSuggestionTableViewCell") as? AutoSuggestionTableViewCell{
+            if let model = autoSuggestionVM.getModel(index: indexPath.row){
+                cell.configure(model: model)
+            }
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return autoSuggestionVM.modelCount
+    }
+
+}
+
+extension ViewController : UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let model = autoSuggestionVM.getModel(index: indexPath.row){
+            searchBar(searchBar, textDidChange: model.text)
+        }
+    }
+}

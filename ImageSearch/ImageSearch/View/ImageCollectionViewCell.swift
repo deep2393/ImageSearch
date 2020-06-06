@@ -21,13 +21,23 @@ final class ImageCollectionViewCell: UICollectionViewCell {
             guard let weakSelf = self else{
                 return
             }
-              if weakSelf.localImageUrl == urlString{
-                    debugPrint("test: row number \(rowNumber)")
-                    self?.imageView.image = image
-              }else{
-                    debugPrint("test: neglected row number \(rowNumber)")
-              }
-          }
+            if weakSelf.localImageUrl == urlString{
+                debugPrint("test: row number \(rowNumber)")
+                self?.imageView.image = image
+            }else{
+                debugPrint("test: neglected row number \(rowNumber)")
+            }
+        }
      }
     
+}
+
+
+final class AutoSuggestionTableViewCell : UITableViewCell{
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    func configure(model: AutoSuggestionModelProtocol){
+        titleLabel.text = model.text
+    }
 }

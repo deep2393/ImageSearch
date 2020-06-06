@@ -24,3 +24,8 @@ final class ImageModel : Decodable, ImageModelProtocol{
 struct ImageModelContainer: Decodable{
     let hits: [ImageModel]
 }
+
+struct ImageAutoSuggestionModel: AutoSuggestionModelProtocol{
+    var text: String
+}
+
