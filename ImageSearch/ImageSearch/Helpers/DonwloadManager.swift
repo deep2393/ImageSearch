@@ -31,12 +31,13 @@ final class ImageCacheLoader {
     func obtainImageWithPath(url: String, completionHandler: @escaping ImageDownloadHandler) {
         //early exit
         guard let imageUrl = URL(string: url) else{
+            completionHandler(nil,url,nil)
             return
         }
         
         //check for cache
         if let image = self.cache.object(forKey: imageUrl.absoluteString as NSString) {
-            completionHandler(image, imageUrl, nil)
+            completionHandler(image, url, nil)
         } else {
             //check for exisiting operation
             if let operation = imageDownloadQueue.operations.filter({ (obj) -> Bool in
@@ -56,9 +57,11 @@ final class ImageCacheLoader {
                         return
                     }
                     if let newImage = image, let unwrappedUrl = url {
-                        weakSelf.cache.setObject(newImage, forKey: unwrappedUrl.absoluteString as NSString)
+                        weakSelf.cache.setObject(newImage, forKey: unwrappedUrl as NSString)
                     }
-                    completionHandler(image, url, error)
+                    DispatchQueue.main.async {
+                        completionHandler(image, url, error)
+                    }
                 }
                 operation.queuePriority = .high
                 imageDownloadQueue.addOperation(operation)

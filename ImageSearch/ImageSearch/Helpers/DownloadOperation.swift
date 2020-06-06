@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-typealias ImageDownloadHandler = (_ image: UIImage?, _ url: URL?, _ error: Error?) -> Void
+
 
 class ImageDownloadOperation : AsyncOperation{
     
@@ -30,7 +30,7 @@ class ImageDownloadOperation : AsyncOperation{
         let downloadTask = newSession.downloadTask(with: imageUrl) { (location, response, error) in
             if let locationUrl = location, let data = try? Data(contentsOf: locationUrl){
                 let image = UIImage(data: data)
-                self.downloadHandler?(image,self.imageUrl,error)
+                self.downloadHandler?(image,self.imageUrl.absoluteString,error)
             }
             self.state = .finished
         }
