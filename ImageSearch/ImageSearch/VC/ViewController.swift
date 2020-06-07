@@ -73,11 +73,13 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegateF
     }
         
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let vc = self.storyboard?.instantiateViewController(identifier: "GalleryViewController") as? GalleryViewController{
-            vc.scrollIndex = indexPath.row
-            vc.viewModel = self.viewModel
-            self.present(vc, animated: true, completion: nil)
-        }
+       
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GalleryViewController") as?     GalleryViewController{
+                vc.scrollIndex = indexPath.row
+                vc.viewModel = self.viewModel
+                self.present(vc, animated: true, completion: nil)
+            }
+        
     }
     
         
@@ -121,6 +123,16 @@ extension ViewController : UISearchBarDelegate{
 }
 
 extension ViewController : ImageSearchVMDelegate{
+    func insertViews(indexes: [Int]) {
+        var indexPathArr = [IndexPath]()
+        for indexObj in indexes{
+            indexPathArr.append(IndexPath(item: indexObj, section: 0))
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.insertItems(at: indexPathArr)
+        }
+    }
+    
     func saveAutoSuggestText(text: String) {
         autoSuggestionVM.saveModel(text: text)
         DispatchQueue.main.async { [weak self] in
@@ -168,7 +180,8 @@ extension ViewController : UITableViewDataSource{
 extension ViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = autoSuggestionVM.getModel(index: indexPath.row){
-            searchBar(searchBar, textDidChange: model.text)
+            searchBar.text = model.text
+            reload(searchBar)
         }
     }
 }

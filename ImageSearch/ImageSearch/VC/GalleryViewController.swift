@@ -17,13 +17,25 @@ class GalleryViewController: UIViewController {
     //MARK:- life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollToIndexAfterDelay()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-         collectionView.scrollToItem(at: IndexPath(row: scrollIndex, section: 0), at: .left, animated: true)
+    //MARK:- Helper methods
+    func scrollToIndexAfterDelay(){
+        let kDelayedMilliSeconds : Int = 100
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(kDelayedMilliSeconds)) { [weak self] in
+            guard let weakSelf = self else{
+                return
+            }
+            weakSelf.changeScrollPositionBasedOnIndex(index: weakSelf.scrollIndex)
+        }
     }
-
+    
+    
+    func changeScrollPositionBasedOnIndex(index: Int){
+        let cellYPosition = UIScreen.main.bounds.width * CGFloat(scrollIndex)
+        collectionView.contentOffset = CGPoint(x: cellYPosition, y: 0)
+    }
 }
 
 extension GalleryViewController : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{

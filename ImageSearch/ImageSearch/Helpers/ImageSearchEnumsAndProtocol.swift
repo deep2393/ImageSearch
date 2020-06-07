@@ -25,6 +25,7 @@ protocol ImageSearchVMDelegate : class{
     func viewModelDidBeginSearching()
     func viewModelDidEndSearching()
     func viewModelRefreshData()
+    func insertViews(indexes: [Int])
     func saveAutoSuggestText(text: String)
 }
 

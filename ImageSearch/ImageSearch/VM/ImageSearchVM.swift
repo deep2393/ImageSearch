@@ -72,9 +72,12 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
                     return
                 }
                 
+                let existingModelCount = weakSelf.dataModels.count
                 weakSelf.dataModels.append(contentsOf: models)
+                let finalModelCount = weakSelf.dataModels.count - 1
+                
                 weakSelf.isRequestingNextPage = false
-                weakSelf.delegate?.viewModelRefreshData()
+                weakSelf.delegate?.insertViews(indexes: [Int](existingModelCount ... finalModelCount))
             }
         }
     }
