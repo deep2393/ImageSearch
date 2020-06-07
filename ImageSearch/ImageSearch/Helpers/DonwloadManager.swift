@@ -31,13 +31,17 @@ final class ImageCacheLoader {
     func obtainImageWithPath(url: String, completionHandler: @escaping ImageDownloadHandler) {
         //early exit
         guard let imageUrl = URL(string: url) else{
-            completionHandler(nil,url,nil)
+              DispatchQueue.main.async {
+                completionHandler(nil,url,nil)
+              }
             return
         }
         
         //check for cache
         if let image = self.cache.object(forKey: imageUrl.absoluteString as NSString) {
-            completionHandler(image, url, nil)
+             DispatchQueue.main.async {
+                completionHandler(image, url, nil)
+            }
         } else {
             //check for exisiting operation
             if let operation = imageDownloadQueue.operations.filter({ (obj) -> Bool in
