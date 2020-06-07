@@ -72,20 +72,6 @@ final class ImageCacheLoader {
             }
         }
     }
-    
-    func slowDownImageDownLoadTask(url: String){
-        guard let imageUrl = URL(string : url) else{
-            return
-        }
-        
-        if let operation = imageDownloadQueue.operations.filter({ (obj) -> Bool in
-            if let imageTask = obj as? ImageDownloadOperation{
-                return imageTask.imageUrl == imageUrl && imageTask.state == .executing
-            }
-            return false
-        }).first{
-            operation.queuePriority = .low
-        }
-    }
+
 }
 

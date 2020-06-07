@@ -13,18 +13,19 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
     weak var delegate: ImageSearchVMDelegate?
     var dataModels : [ImageModelProtocol]
     let apiHandler : ImageSearchApiProtocol
-    var currentPage : Int = 1
-    var isRequestingNextPage: Bool = false
-    var currentSearchedText : String = ""
+    private var currentPage : Int = 1
+    private var isRequestingNextPage: Bool = false
+    private var currentSearchedText : String = ""
     
     var showBottomLoader: Bool {
         return isRequestingNextPage
     }
     
     //MARK:- init
-    override init() {
-        dataModels = []
-        apiHandler = ImageSearchApiHandler()
+    init(dataModels: [ImageModelProtocol] = [],
+         apiHandler : ImageSearchApiProtocol = ImageSearchApiHandler()) {
+        self.dataModels = dataModels
+        self.apiHandler = apiHandler
     }
     
     //MARK:- UI related methods and variables
@@ -87,7 +88,7 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
     }
     
     //MARK:- helper methods
-    func resetValues(){
+    private func resetValues(){
         currentPage = 1
         dataModels.removeAll()
         isRequestingNextPage = false

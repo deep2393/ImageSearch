@@ -16,7 +16,6 @@ protocol ImageModelProtocol{
     func fetchImage(completion: @escaping ImageDownloadHandler)
 }
 
-
 protocol ImageSearchApiProtocol{
     func fetchImages(searchText: String, pageToSearch: Int, completionHandler : @escaping (_ models : [ImageModelProtocol], _ searchedText: String, Error?) -> Void)
 }
@@ -61,4 +60,11 @@ protocol AutoSuggestionModelProtocol{
 protocol AutoSuggestionDBProtocol{
     func getAllModels() -> [AutoSuggestionModelProtocol]
     func saveModel(model: AutoSuggestionModelProtocol)
+}
+
+
+protocol UserDefaultMockProtocol{
+    func set(_ items: Any?, forKey: String)
+    func stringArray(forKey: String) -> [String]?
+    @discardableResult func synchronize() -> Bool
 }

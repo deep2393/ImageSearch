@@ -8,17 +8,18 @@
 import Foundation
 
 class AutoSuggestionVM: AutoSuggestionVMProtocol{
+    //MARK:- variables
     var autoSuggestionDBHandler : AutoSuggestionDBProtocol
-    var models : [AutoSuggestionModelProtocol]{
+    private var models : [AutoSuggestionModelProtocol]{
         return autoSuggestionDBHandler.getAllModels()
     }
     
     //MARK:- init
-    init() {
-        autoSuggestionDBHandler = AutoSuggestionDBHandler()
+    init(dbHandler: AutoSuggestionDBProtocol = AutoSuggestionDBHandler()) {
+        autoSuggestionDBHandler = dbHandler
     }
     
-    //MARK:- model confirmation
+    //MARK:- protocol confirmation
     var isDataSourceEmpty: Bool {
         return models.isEmpty
     }
@@ -47,19 +48,24 @@ class AutoSuggestionVM: AutoSuggestionVMProtocol{
 
 
 class AutoSuggestionDBHandler: AutoSuggestionDBProtocol{
-    let kAutoSuggestionKey = "AutoSuggestion"
-    var autoSuggestionArr : [AutoSuggestionModelProtocol]
-    let kMaxCount : Int = 10
+    //MARK:- variables
+    private let kAutoSuggestionKey = "AutoSuggestion"
+    private var autoSuggestionArr : [AutoSuggestionModelProtocol]
+    private let kMaxCount : Int = 10
+    private let userDefault: UserDefaultMockProtocol
     
-    init() {
+    //MARK:- init
+    init(userDefault: UserDefaultMockProtocol = UserDefaults.standard) {
+        self.userDefault = userDefault
         autoSuggestionArr = []
-        if let stringArr = UserDefaults.standard.stringArray(forKey: kAutoSuggestionKey){
+        if let stringArr = userDefault.stringArray(forKey: kAutoSuggestionKey){
             for obj in stringArr{
                 autoSuggestionArr.append(ImageAutoSuggestionModel(text: obj))
             }
         }
     }
     
+    //MARK:- protocol methods
     func getAllModels() -> [AutoSuggestionModelProtocol]{
         return autoSuggestionArr
     }
@@ -75,7 +81,9 @@ class AutoSuggestionDBHandler: AutoSuggestionDBProtocol{
             return obj.text
         })
         
-        UserDefaults.standard.set(stringArr, forKey: kAutoSuggestionKey)
-        UserDefaults.standard.synchronize()
+        userDefault.set(stringArr, forKey: kAutoSuggestionKey)
+        userDefault.synchronize()
     }
 }
+
+extension UserDefaults: UserDefaultMockProtocol{}

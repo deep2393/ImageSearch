@@ -11,16 +11,15 @@ import UIKit
 final class ViewController: UIViewController {
     
     //MARK:- variables
-    let viewModel : ImageSearchVMProtocol = ImageSearchVM()
-    let autoSuggestionVM : AutoSuggestionVMProtocol = AutoSuggestionVM()
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+    fileprivate let viewModel : ImageSearchVMProtocol = ImageSearchVM()
+    fileprivate let autoSuggestionVM : AutoSuggestionVMProtocol = AutoSuggestionVM()
     fileprivate var footerView : CustomReusableView?
     
     //MARK:- outlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var autoSuggestionTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,17 +46,6 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegateF
             footerView?.showLoader(show: viewModel.showBottomLoader)
         }
     }
-        
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        if viewModel.showBottomLoader{
-//            return
-//        }
-
-//        if let model = viewModel.getModel(indexPath: indexPath), let urlString = model.imageUrl{
-//            ImageCacheLoader.sharedInstance.slowDownImageDownLoadTask(url: URL(string: urlString))
-//        }
-    }
-        
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as? ImageCollectionViewCell{
