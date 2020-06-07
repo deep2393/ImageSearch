@@ -16,7 +16,7 @@ struct MockApiHandler : ImageSearchApiProtocol{
             
             completionHandler(models, searchText, nil)
         }else{
-            completionHandler([], searchText, ApiConfiguration.kNoObjectError)
+            completionHandler([], searchText, ApiError.noObjects.errorObj)
         }
     }
 }

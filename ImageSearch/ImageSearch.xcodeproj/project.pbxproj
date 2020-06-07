@@ -34,6 +34,7 @@
 		D4C03729248D480E00B1F5A7 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C03728248D480E00B1F5A7 /* MockModels.swift */; };
 		D4C0372B248D4B5600B1F5A7 /* AutoSuggestDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0372A248D4B5600B1F5A7 /* AutoSuggestDBTests.swift */; };
 		D4C0372D248D50FC00B1F5A7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0372C248D50FC00B1F5A7 /* Reachability.swift */; };
+		D4C0372E248D57B100B1F5A7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0372C248D50FC00B1F5A7 /* Reachability.swift */; };
 		D4D9688B248A8EAA001ED1B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4D96889248A8EAA001ED1B7 /* Main.storyboard */; };
 		D4D9688D248A8EAC001ED1B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D9688C248A8EAC001ED1B7 /* Assets.xcassets */; };
 		D4D96890248A8EAC001ED1B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4D9688E248A8EAC001ED1B7 /* LaunchScreen.storyboard */; };
@@ -359,6 +360,7 @@
 			files = (
 				D4C03719248D385F00B1F5A7 /* CustomOperation.swift in Sources */,
 				D4C03725248D3AC600B1F5A7 /* MockApiHandler.swift in Sources */,
+				D4C0372E248D57B100B1F5A7 /* Reachability.swift in Sources */,
 				D4C0371D248D385F00B1F5A7 /* ImageSearchApiHandler.swift in Sources */,
 				D4C03711248D385F00B1F5A7 /* DataModels.swift in Sources */,
 				D4C03727248D428000B1F5A7 /* AutoSuggestVMtests.swift in Sources */,
