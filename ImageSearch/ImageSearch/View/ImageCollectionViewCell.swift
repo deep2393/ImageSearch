@@ -22,10 +22,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
                 return
             }
             if weakSelf.localImageUrl == urlString{
-                debugPrint("test: row number \(rowNumber)")
                 self?.imageView.image = image
-            }else{
-                debugPrint("test: neglected row number \(rowNumber)")
             }
         }
      }
