@@ -18,7 +18,7 @@ protocol ImageModelProtocol{
 
 
 protocol ImageSearchApiProtocol{
-    func fetchImages(searchText: String, pageToSearch: Int, completionHandler : @escaping (_ models : [ImageModelProtocol], _ searchedText: String) -> Void)
+    func fetchImages(searchText: String, pageToSearch: Int, completionHandler : @escaping (_ models : [ImageModelProtocol], _ searchedText: String, Error?) -> Void)
 }
 
 protocol ImageSearchVMDelegate : class{
@@ -27,6 +27,7 @@ protocol ImageSearchVMDelegate : class{
     func viewModelRefreshData()
     func insertViews(indexes: [Int])
     func saveAutoSuggestText(text: String)
+    func showErrorMsg(errorMsg: String)
 }
 
 

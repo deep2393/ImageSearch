@@ -21,12 +21,20 @@ struct ApiConfiguration{
         let combinedUrl = assembledURLString + "&q=\(searchString)&page=\(pageToSearch)"
         return combinedUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? ""
     }
+    
+    static var kConfigError: Error{
+        return NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "There is some issue in configuration."])
+    }
+    
+    static var kNoObjectError: Error{
+        return NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No objects found."])
+    }
 }
 
 final class ImageSearchApiHandler: ImageSearchApiProtocol{
-    func fetchImages(searchText: String, pageToSearch: Int, completionHandler: @escaping ([ImageModelProtocol], String) -> Void) {
+    func fetchImages(searchText: String, pageToSearch: Int, completionHandler: @escaping ([ImageModelProtocol], String, Error?) -> Void) {
         guard let url = URL(string: ApiConfiguration.collectiveUrlString(searchString: searchText, pageToSearch: pageToSearch)) else{
-            completionHandler([], searchText)
+            completionHandler([], searchText, ApiConfiguration.kConfigError)
             return
         }
         
@@ -35,9 +43,14 @@ final class ImageSearchApiHandler: ImageSearchApiProtocol{
         let urltask = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
             if let unwrappedData = data,
                 let modelContainer = try? JSONDecoder().decode(ImageModelContainer.self, from: unwrappedData){
-                completionHandler(modelContainer.hits, searchText)
+                if modelContainer.hits.isEmpty{
+                    completionHandler([], searchText, ApiConfiguration.kNoObjectError)
+                }
+                else{
+                    completionHandler(modelContainer.hits, searchText, nil)
+                }
             }else{
-                completionHandler([], searchText)
+                completionHandler([], searchText, error)
             }
         }
         urltask.resume()

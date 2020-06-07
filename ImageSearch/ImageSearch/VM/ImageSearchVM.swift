@@ -46,16 +46,20 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
         delegate?.viewModelDidBeginSearching()
         
         if !searchText.isEmpty{
-            apiHandler.fetchImages(searchText: searchText, pageToSearch: currentPage) { [weak self](models, searchText)  in
+            apiHandler.fetchImages(searchText: searchText, pageToSearch: currentPage) { [weak self](models, searchText, error)   in
                 guard let weakSelf = self else{
                     return
                 }
                 if !models.isEmpty{
                     weakSelf.dataModels.append(contentsOf: models)
                     weakSelf.delegate?.saveAutoSuggestText(text: searchText)
+                }else if let errorObj = error{
+                    //check for error
+                    weakSelf.delegate?.showErrorMsg(errorMsg: errorObj.localizedDescription)
                 }
-                    weakSelf.delegate?.viewModelDidEndSearching()
-                    weakSelf.delegate?.viewModelRefreshData()
+                
+                weakSelf.delegate?.viewModelDidEndSearching()
+                weakSelf.delegate?.viewModelRefreshData()
             }
         }else{
             delegate?.viewModelDidEndSearching()
@@ -67,7 +71,7 @@ final class ImageSearchVM: NSObject, ImageSearchVMProtocol {
         if !isRequestingNextPage{
             currentPage += 1
             isRequestingNextPage = true
-            apiHandler.fetchImages(searchText: currentSearchedText, pageToSearch: currentPage) { [weak self](models, _)  in
+            apiHandler.fetchImages(searchText: currentSearchedText, pageToSearch: currentPage) { [weak self](models, _, _)   in
                 guard let weakSelf = self else{
                     return
                 }

@@ -30,12 +30,9 @@ final class ViewController: UIViewController {
     
     
     //MARK:- Helper methods
-    func manageAutoSuggestionViewHiding(show: Bool){
-        if show{
-            autoSuggestionTableView.isHidden = autoSuggestionVM.isDataSourceEmpty
-        }else{
-             autoSuggestionTableView.isHidden = true
-        }
+    func manageAutoSuggestionViewHiding(searchText: String?){
+        autoSuggestionTableView.isHidden = !(!autoSuggestionVM.isDataSourceEmpty && searchText?.isEmpty == true)
+        
     }
 }
    
@@ -105,7 +102,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegateF
 extension ViewController : UISearchBarDelegate{
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        manageAutoSuggestionViewHiding(show: true)
+        manageAutoSuggestionViewHiding(searchText: searchBar.text)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -115,14 +112,21 @@ extension ViewController : UISearchBarDelegate{
         
     @objc func reload(_ searchBar: UISearchBar){
         if let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines){
-            manageAutoSuggestionViewHiding(show: false)
-            viewModel.fetchModels(searchText: text)
-            manageAutoSuggestionViewHiding(show: text.isEmpty)
+             viewModel.fetchModels(searchText: text)
+             manageAutoSuggestionViewHiding(searchText: text)
         }
     }
 }
 
 extension ViewController : ImageSearchVMDelegate{
+    func showErrorMsg(errorMsg: String) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(title: "Alert", message: errorMsg, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func insertViews(indexes: [Int]) {
         var indexPathArr = [IndexPath]()
         for indexObj in indexes{
