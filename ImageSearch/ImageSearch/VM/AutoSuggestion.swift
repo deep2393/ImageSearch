@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class AutoSuggestionVM: AutoSuggestionVMProtocol{
+final class AutoSuggestionVM: AutoSuggestionVMProtocol{
     //MARK:- variables
     var autoSuggestionDBHandler : AutoSuggestionDBProtocol
     private var models : [AutoSuggestionModelProtocol]{
@@ -47,7 +47,7 @@ class AutoSuggestionVM: AutoSuggestionVMProtocol{
 
 
 
-class AutoSuggestionDBHandler: AutoSuggestionDBProtocol{
+final class AutoSuggestionDBHandler: AutoSuggestionDBProtocol{
     //MARK:- variables
     private let kAutoSuggestionKey = "AutoSuggestion"
     private var autoSuggestionArr : [AutoSuggestionModelProtocol]

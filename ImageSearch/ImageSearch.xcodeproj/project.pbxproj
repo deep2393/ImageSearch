@@ -33,6 +33,7 @@
 		D4C03727248D428000B1F5A7 /* AutoSuggestVMtests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C03726248D428000B1F5A7 /* AutoSuggestVMtests.swift */; };
 		D4C03729248D480E00B1F5A7 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C03728248D480E00B1F5A7 /* MockModels.swift */; };
 		D4C0372B248D4B5600B1F5A7 /* AutoSuggestDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0372A248D4B5600B1F5A7 /* AutoSuggestDBTests.swift */; };
+		D4C0372D248D50FC00B1F5A7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0372C248D50FC00B1F5A7 /* Reachability.swift */; };
 		D4D9688B248A8EAA001ED1B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4D96889248A8EAA001ED1B7 /* Main.storyboard */; };
 		D4D9688D248A8EAC001ED1B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D9688C248A8EAC001ED1B7 /* Assets.xcassets */; };
 		D4D96890248A8EAC001ED1B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4D9688E248A8EAC001ED1B7 /* LaunchScreen.storyboard */; };
@@ -68,6 +69,7 @@
 		D4C03726248D428000B1F5A7 /* AutoSuggestVMtests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSuggestVMtests.swift; sourceTree = "<group>"; };
 		D4C03728248D480E00B1F5A7 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
 		D4C0372A248D4B5600B1F5A7 /* AutoSuggestDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSuggestDBTests.swift; sourceTree = "<group>"; };
+		D4C0372C248D50FC00B1F5A7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		D4D96880248A8EAA001ED1B7 /* ImageSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D9688A248A8EAA001ED1B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D4D9688C248A8EAC001ED1B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		D4D968B4248A9366001ED1B7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				D4C0372C248D50FC00B1F5A7 /* Reachability.swift */,
 				D4C03703248B793B00B1F5A7 /* ImageSearchApiHandler.swift */,
 			);
 			path = Network;
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C0372D248D50FC00B1F5A7 /* Reachability.swift in Sources */,
 				D4D968AE248A9133001ED1B7 /* ImageCollectionViewCell.swift in Sources */,
 				D4D968AC248A8F2B001ED1B7 /* ViewController.swift in Sources */,
 				D4D968B1248A9273001ED1B7 /* ImageSearchProtocols.swift in Sources */,

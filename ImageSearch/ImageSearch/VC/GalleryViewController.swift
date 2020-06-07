@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GalleryViewController: UIViewController {
+final class GalleryViewController: UIViewController {
     //MARK:- outlets and variables
     @IBOutlet weak var collectionView: UICollectionView!
     weak var viewModel: ImageSearchVMProtocol?

@@ -68,3 +68,22 @@ protocol UserDefaultMockProtocol{
     func stringArray(forKey: String) -> [String]?
     @discardableResult func synchronize() -> Bool
 }
+
+enum ApiError{
+    case noNetwork, noObjects, wrongConfig
+    
+    var errorMessage: String{
+        switch self {
+        case .noNetwork:
+            return "Network connection error."
+        case .noObjects:
+            return "No objects found."
+        case .wrongConfig:
+            return "There is some issue in configuration."
+        }
+    }
+    
+    var errorObj: Error{
+        return NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+    }
+}

@@ -10,10 +10,11 @@ import UIKit
 
 final class ImageCollectionViewCell: UICollectionViewCell {
     //MARK:- outlets and variables
-       @IBOutlet weak var imageView
+    @IBOutlet weak var imageView
         : UIImageView!
     private var localImageUrl : String?
     
+    //MARK:- configuration
     func configure(rowNumber: Int, model: ImageModelProtocol){
         imageView.image = nil
         localImageUrl = model.imageUrl
@@ -31,9 +32,10 @@ final class ImageCollectionViewCell: UICollectionViewCell {
 
 
 final class AutoSuggestionTableViewCell : UITableViewCell{
-    
+    //MARK:- outlets
     @IBOutlet weak var titleLabel: UILabel!
     
+    //MARK:- configuration
     func configure(model: AutoSuggestionModelProtocol){
         titleLabel.text = model.text
     }
